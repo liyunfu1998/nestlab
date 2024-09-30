@@ -3,9 +3,17 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // 自定义全局middleware
+  app.use(function (req: Request, res: Response, next: NextFunction) {
+    console.log('before', req.url);
+    next();
+    console.log('after');
+  });
 
   // 启用全局验证管道
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
