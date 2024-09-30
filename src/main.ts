@@ -22,6 +22,7 @@ async function bootstrap() {
 
   // 全局拦截器
   app.useGlobalInterceptors(new TimeInterceptor());
+
   // 启用全局验证管道
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
