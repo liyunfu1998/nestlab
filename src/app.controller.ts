@@ -10,4 +10,10 @@ export class AppController {
     console.log('handler...');
     return this.appService.getHello();
   }
+
+  @Get('aaa')
+  getHello2(): string {
+    console.log('log-handler');
+    return this.appService.getHello();
+  }
 }
