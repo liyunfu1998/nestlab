@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
+import { TestFilter } from './test.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -23,6 +24,8 @@ async function bootstrap() {
   // 全局拦截器
   app.useGlobalInterceptors(new TimeInterceptor());
 
+  // 全局过滤器
+  app.useGlobalFilters(new TestFilter());
   // 启用全局验证管道
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 

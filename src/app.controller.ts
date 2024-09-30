@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Query,
+  UseFilters,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { AppService } from './app.service';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
 import { ValidatePipe } from './validate.pipe';
+import { TestFilter } from './test.filter';
 
 @Controller()
 export class AppController {
@@ -30,6 +32,7 @@ export class AppController {
   }
 
   @Get('ccc')
+  @UseFilters(TestFilter)
   ccc(@Query('num', ValidatePipe) num: number) {
     return num + 1;
   }
