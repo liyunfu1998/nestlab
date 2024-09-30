@@ -5,11 +5,19 @@ import { UserModule } from './user/user.module';
 import { DbModule } from './db/db.module';
 import { BookModule } from './book/book.module';
 import { LogMiddleware } from './log.middleware';
+import { APP_GUARD } from '@nestjs/core';
+import { LoginGuard } from './login.guard';
 
 @Module({
   imports: [UserModule, DbModule, BookModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

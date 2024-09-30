@@ -17,7 +17,7 @@ async function bootstrap() {
   });
 
   // 全局路由守卫
-  app.useGlobalGuards(new LoginGuard());
+  // app.useGlobalGuards(new LoginGuard());
   // 启用全局验证管道
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
