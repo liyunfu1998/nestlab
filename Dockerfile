@@ -24,9 +24,11 @@ RUN npm config set registry https://registry.npmmirror.com/
 
 RUN npm install --production
 
+RUN npm install pm2 -g
+
 EXPOSE 3000
 
-CMD ["node", "/app/main.js"]
+CMD ["pm2-runtime", "/app/main.js"]
 
 # 此次采用多阶段构建第一阶段构建出镜像包含src、node_modules的，第二阶段构建出镜像包含dist的，
 # 这样做的目的是为了减少镜像的体积，因为dist是构建出的静态文件，不需要每次都重新构建，所以可以将其放在第二阶段构建。
