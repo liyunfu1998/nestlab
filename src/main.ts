@@ -11,6 +11,7 @@ import { TestFilter } from './test.filter';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.enableCors();
   // 自定义全局middleware
   app.use(function (req: Request, res: Response, next: NextFunction) {
     console.log('before', req.url);
