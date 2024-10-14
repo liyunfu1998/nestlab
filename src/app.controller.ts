@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
+  Logger,
   Post,
   Query,
   UploadedFile,
@@ -17,13 +19,18 @@ import { ValidatePipe } from './validate.pipe';
 import { TestFilter } from './test.filter';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
+import { WINSTON_LOGGER_TOKEN } from './winston/winston.module';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Inject(WINSTON_LOGGER_TOKEN)
+  private logger;
+
   @Get()
   getHello(): string {
+    this.logger.log('hello', AppController.name);
     console.log('handler...');
     return this.appService.getHello();
   }

@@ -7,9 +7,12 @@ import { NextFunction, Request, Response } from 'express';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
 import { TestFilter } from './test.filter';
+import { WINSTON_LOGGER_TOKEN } from './winston/winston.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // 使用自定义的日志
+  app.useLogger(app.get(WINSTON_LOGGER_TOKEN));
 
   app.enableCors();
   // 自定义全局middleware
